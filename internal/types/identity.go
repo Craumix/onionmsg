@@ -4,6 +4,7 @@ import (
 	"crypto/ed25519"
 	"encoding/base64"
 	"fmt"
+
 	"github.com/wybiral/torgo"
 )
 
@@ -105,7 +106,15 @@ func (i Identity) Fingerprint() string {
 		return ""
 	}
 
-	return base64.RawURLEncoding.EncodeToString(*i.Pub)
+	return FingerprintKeyFormatting(*i.Pub)
+}
+
+func FingerprintKeyFormatting(pub ed25519.PublicKey) string {
+	if pub == nil {
+		return ""
+	}
+
+	return base64.RawURLEncoding.EncodeToString(pub)
 }
 
 func (i Identity) String() string {
